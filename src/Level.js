@@ -1,15 +1,12 @@
-import * as THREE from "three";
 import { RigidBody } from "@react-three/rapier";
 import { useKeyboardControls } from "@react-three/drei";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 
-THREE.ColorManagement.legacyMode = false;
-
 export default function Level() {
   const rigidBody = useRef();
-  const [subscribeKeys, getKeys] = useKeyboardControls();
+  const [getKeys] = useKeyboardControls();
 
   const { nodes, materials } = useGLTF("./labyrinth.glb");
 
@@ -35,6 +32,12 @@ export default function Level() {
       torque.z -= torqueStrength;
       rigidBody.current.applyTorqueImpulse(torque);
     }
+
+    // TODO : Limit rotation on X axis
+
+    // TODO : Limit rotation on Z axis
+
+    // TODO : Do not rotate on Y axis
 
     // const rotation = rigidBody.current.rotation();
     // const x = rotation.x.toFixed(2);
