@@ -10,6 +10,9 @@ export default function Interface() {
   const left = useKeyboardControls((state) => state.left);
   const right = useKeyboardControls((state) => state.right);
 
+  const jump = useKeyboardControls((state) => state.jump);
+  const status = useGame((state) => state.status);
+  const restart = useGame((state) => state.restart);
   const timeRef = useRef();
 
   useEffect(() => {

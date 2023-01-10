@@ -5,6 +5,10 @@ import { subscribeWithSelector } from "zustand/middleware";
 export default create(
   subscribeWithSelector((set) => {
     return {
+      status: "ready", // ["ready", "playing", "ending"]
+      startTime: 0,
+      endTime: 0,
+
       // Functions
       start: () => {
         set((state) => {
@@ -23,7 +27,7 @@ export default create(
       restart: () => {
         set((state) => {
           if (state.status === "playing" || state.status === "ending")
-            return { status: "ready", blocksSeed: Math.random() };
+            return { status: "ready" };
           return {};
         });
       },

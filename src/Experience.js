@@ -1,4 +1,3 @@
-import {} from "@react-three/drei";
 import Level from "./Level.js";
 import Lights from "./Lights.js";
 import { Physics } from "@react-three/rapier";
@@ -9,6 +8,7 @@ export default function Experience() {
   return (
     <>
       <Physics>
+        <color args={["#252731"]} />
         <Lights />
         <Level />
         <Player />

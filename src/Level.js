@@ -1,14 +1,29 @@
 import { RigidBody } from "@react-three/rapier";
 import { useKeyboardControls } from "@react-three/drei";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
+import useGame from "./stores/useGame";
 
 export default function Level() {
   const rigidBody = useRef();
-  const [getKeys] = useKeyboardControls();
+  const [subscribeKeys, getKeys] = useKeyboardControls();
+
+  const start = useGame((state) => state.start);
+  const end = useGame((state) => state.end);
+  const restart = useGame((state) => state.restart);
 
   const { nodes, materials } = useGLTF("./labyrinth.glb");
+
+  useEffect(() => {
+    const unsubscribeAnyKey = subscribeKeys((state) => {
+      start();
+    });
+
+    return () => {
+      unsubscribeAnyKey();
+    };
+  });
 
   useFrame((state, delta) => {
     const keys = getKeys();
@@ -46,6 +61,7 @@ export default function Level() {
     //   const eulerRotation = new THREE.Euler(-0.05, 0, 0);
     //   const quaternionRotation = new THREE.Quaternion();
     //   quaternionRotation.setFromEuler(eulerRotation);
+
     //   rigidBody.current.setRotation(quaternionRotation);
     // rigidBody.current.setLinvel({ x: 0, y: 0, z: 0 });
     // rigidBody.current.setAngvel({ x: 0, y: 0, z: 0 });

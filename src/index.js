@@ -28,6 +28,10 @@ const mapKeys = [
     name: "restarter",
     keys: ["KeyR"],
   },
+  {
+    name: "jump",
+    keys: ["Space"],
+  },
 ];
 
 root.render(
